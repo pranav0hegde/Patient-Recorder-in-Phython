@@ -1,0 +1,67 @@
+class PatientRecordApp:
+    def _init_(self):
+        self.patients = {}
+
+    def add_patient(self, patient_id, name, dob, diagnosis):
+        self.patients[patient_id] = {
+            'name': name,
+            'dob': dob,
+            'diagnosis': diagnosis,
+            'records': []
+        }
+
+    def add_record(self, patient_id, date, notes):
+        if patient_id in self.patients:
+            self.patients[patient_id]['records'].append((date, notes))
+        else:
+            print("Patient not found!")
+
+    def display_records(self, patient_id):
+        if patient_id in self.patients:
+            print(f"Patient Name: {self.patients[patient_id]['name']}")
+            print("Records:")
+            for date, notes in self.patients[patient_id]['records']:
+                print(f"Date: {date}, Notes: {notes}")
+        else:
+            print("Patient not found!")
+
+    def run(self):
+        while True:
+            print("\nPatient Record App")
+            print("1. Add Patient")
+            print("2. Add Record")
+            print("3. Display Records")
+            print("4. Exit")
+            choice = input("Enter your choice: ")
+
+            if choice == '1':
+                patient_id = input("Enter Patient ID: ")
+                name = input("Enter Name: ")
+                dob = input("Enter Date of Birth: ")
+                diagnosis = input("Enter Diagnosis: ")
+                self.add_patient(patient_id, name, dob, diagnosis)
+                print("Patient added successfully!")
+
+            elif choice == '2':
+                patient_id = input("Enter Patient ID: ")
+                date = input("Enter Date: ")
+                notes = input("Enter Notes: ")
+                self.add_record(patient_id, date, notes)
+                print("Record added successfully!")
+
+            elif choice == '3':
+                patient_id = input("Enter Patient ID: ")
+                self.display_records(patient_id)
+
+            elif choice == '4':
+                print("Exiting the app.")
+                break
+
+            else:
+                print("Invalid choice. Please select again.")
+                
+
+
+if _name_ == "_main_":
+    app = PatientRecordApp()
+    app.run()
